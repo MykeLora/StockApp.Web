@@ -1,0 +1,70 @@
+﻿@model Stock.Application.ViewModels.SaveProductViewModel
+
+@{
+    bool editMode = Model.Id == 0 ? false : true;
+    ViewData["Title"] = "Guardar Producto";
+}
+
+<h1>SaveProduct</h1>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-6 offset-3">
+            <div class="card">
+                <div class="card-header bg-dark text-light">
+                    <h4>@(editMode ? $"Editando el producto: {Model.Name} " : "Creando un nuevo producto")</h4>
+                </div>
+
+                <div class="card-body">
+                    <form method="post" asp-controller="Product" asp-action="@(editMode ? "Edit":"create")">
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">Nombre: </label>
+                            <input type="text" asp-for="Name" class="form-control"/>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label">Descripcion: </label>
+                            <textarea asp-for="Description" class="form-control" >Descripcion: </textarea></>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="PathImage" class="form-label">Url de la imagen: </label>
+                            <input type="text" asp-for="PathImage" class="form-control"/>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Precio" class="form-label">Precio: </label>
+                            <input type="number" step="any" asp-for="Precio" class="form-control" />
+                            <span asp-validation-for="Precio" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="CategoryId" class="form-label">Categoria: </label>
+                            <select asp-for="CategoryId" class="form-select">
+
+                                <option value=""> Seleccione la categoria</option>
+                                <option value="1"> Category 1</option>
+                                <option value="2"> Category 2</option>
+                            </select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+
+                        <input type="hidden" asp-for="Id" />
+
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <a asp-controller="Product" asp-action="Index" class="btn btn-warning">Volver atras</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+</div>
+
+
+
